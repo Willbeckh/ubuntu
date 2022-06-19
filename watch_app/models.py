@@ -10,11 +10,12 @@ class UserProfile(models.Model):
         User, on_delete=models.CASCADE, related_name='user')
     photo = models.ImageField(
         upload_to='profile_images', blank=True, null=True, default='profile_images/default.png')
+    location = models.CharField(max_length=100, blank=True, null=True, default='')
     bio = models.TextField(blank=True, default='', null=True, max_length=500)
     phone = models.CharField(max_length=20, blank=True, null=True, default='')
     created_on = models.DateTimeField(auto_now_add=True, null=True)
-    # neighborhood = models.CharField(max_length=50, blank=True, null=True, default='')
-    block = models.CharField(max_length=80, blank=True, null=True, default='')
+    neighborhood = models.ForeignKey('Neighborhood', on_delete=models.CASCADE, null=True, blank=True)
+    street = models.CharField(max_length=80, blank=True, null=True, default='')
 
     def __str__(self):
         return self.user.username
@@ -25,3 +26,34 @@ class UserProfile(models.Model):
             user_profile = UserProfile(user=user)
             user_profile.save()
     post_save.connect(create_profile, sender=User)
+
+
+# neighborhood model
+class Neighborhood(models.Model):
+    name = models.CharField(max_length=50, blank=True, null=True, default='')
+    location = models.CharField(max_length=50, blank=True, null=True, default='')
+    occupants = models.IntegerField(blank=True, null=True, default=0)
+    created_on = models.DateTimeField(auto_now_add=True, null=True)
+    user = models.ForeignKey(User, on_delete=models.CASCADE, related_name='neighborhood', blank=True, null=True)
+    # business = models.ForeignKey('Business', on_delete=models.CASCADE, blank=True, null=True)
+
+    def __str__(self):
+        return self.name
+    
+    def create_neighborhood(self):
+        return self.save()
+        
+    def update_neighborhood(self):
+        pass
+    
+    def delete_neighborhood(self):
+        pass
+    
+    def find_neighborhood_by_id(self, id):
+        pass
+    
+    def update_occupants(self):
+        pass
+    
+    def count_occupants(self):
+        pass
