@@ -5,8 +5,25 @@
 <!-- home content -->
 <div class="row">
   <div class="col-md-12">
-    <h1>Watch</h1>
-    <p>This is the home page of the Watch app.</p>
+    <div class="banner rounded mt-5">
+      <h3 class="text-center">Welcome to {{data.neighborhood}}</h3>
+      '
+      <div class="col-md-6 col-sm-10 mx-auto">
+        <div class="input-group mb-2">
+          <input
+            type="search"
+            class="form-control col-form-label-lg"
+            id="inlineFormInputGroup"
+            placeholder="Search..."
+          />
+          <div class="input-group-append">
+            <button class="btn btn-outline-info" type="button">
+              <i class="fas fa-search"></i>
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
   </div>
 </div>
 {% endblock %}
