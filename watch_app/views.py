@@ -1,4 +1,4 @@
-from django.shortcuts import redirect, render, HttpResponseRedirect
+from django.shortcuts import redirect, render, HttpResponseRedirect, get_object_or_404
 from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.decorators import login_required
 from django.forms.models import inlineformset_factory
@@ -15,9 +15,9 @@ from .models import UserProfile
 
 
 # Create your views here.
-class HomeView(LoginRequiredMixin,View):
+class HomeView(LoginRequiredMixin, View):
     login_url = '/login/'
-    
+
     def get(self, request):
         context = {
             'title': 'Home',
@@ -54,6 +54,7 @@ class LoginView(View):
     context = {
         'title': 'Login'
     }
+
     def get(self, request):
         return render(request, 'watch/login.html')
 
@@ -68,7 +69,7 @@ class LoginView(View):
             return redirect(reverse('watch:home'))
         else:
             messages.error(request, 'Invalid username or password.')
-            
+
         return render(request, 'watch/login.html', self.context)
 
 
@@ -77,6 +78,20 @@ class LogoutView(View):
     def get(self, request):
         logout(request)
         return redirect("watch:home")
+
+
+class ProfileView(LoginRequiredMixin, View):
+    login_ur = '/login/'
+    """this class view is used to render the profile page and execute user profile updates."""
+
+    def get(self, request):
+        user = request.user
+        context = {
+            'title': 'Profile',
+            'user_data': user
+        }
+        return render(request, 'watch/profile.html', context)
+
 
 @login_required
 def edit_user(request, pk):
