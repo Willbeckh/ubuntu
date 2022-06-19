@@ -7,6 +7,9 @@ name = "pypi"
 django = "==4.0.4"
 python-decouple = "*"
 psycopg2 = "*"
+django-bootstrap4 = "*"
+pillow = "*"
+fontawesomefree = "==6.1.1"
 
 [dev-packages]
 
