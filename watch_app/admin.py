@@ -8,7 +8,7 @@ class ProfileAdmin(admin.ModelAdmin):
         (None, {'fields': ['user']}),
         ('Bio', {'fields': ['bio']}),
         ('Phone', {'fields': ['phone']}),
-        ('Block', {'fields': ['block']}),
+        ('Street', {'fields': ['street']}),
         ('Neighborhood', {'fields': ['neighborhood']}),
         ('Photo', {'fields': ['photo']}),
     ]
