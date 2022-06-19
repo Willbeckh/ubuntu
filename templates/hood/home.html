@@ -1,4 +1,5 @@
 {% extends 'base.html' %}{% block title %}This is the home page{% endblock %}{% block content %}
 <h1 class="btn btn-success">this is the hom page</h1>
 {{user.username}}
-<a href="{% url 'logout' %}" class="btn btn-primary">Logout </a> {{reuest.user}}{% endblock %}
+<a href="{% url 'logout' %}" class="btn btn-primary">Logout </a>
+<a href="{% url 'profile' %}">Profile</a> {{reuest.user}}{% endblock %}

@@ -67,3 +67,10 @@ def LogoutUser(request):
 
 
     return redirect('login')
+
+
+
+
+def profile(request):
+
+    return render(request, 'hood/profile.html')
