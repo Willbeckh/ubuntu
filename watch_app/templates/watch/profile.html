@@ -2,18 +2,51 @@
 
 <!-- user profile -->
 {% block content %}
-<!-- PROFILE -->
-<h3>my profile</h3>
+<div class="row profile-banner">
+  {% if profile_data %}
+  <div class="col col-sm-10 col-md-3 p-2 rounded user-img-section">
+    <img
+      src="{{ profile_data.image_url|default_if_none:'media/default.jpg' }}"
+      width="50px"
+      class="user-img"
+    />
+  </div>
+  <div class="col col-sm-10 col-md-8 p-3 rounded user-details">
+    <div>
+      <span class="username">
+        {{user_data.first_name}} {{user_data.last_name}}
+        <small>({{user_data}})</small>
+      </span>
+      <!-- edit btn -->
+      {% if user.id == request.user.id %}
+      <a href="{% url 'watch:edit_profile' user.pk %}">
+        <i class="fas fa-pen"></i>
+      </a>
+      {% endif %}
+    </div>
 
-<p>{{ user_data }}</p>
-<p>{{ user_data.email }}</p>
-<p>{{ user_data.first_name }}</p>
-<p>{{ user_data.last_name }}</p>
-<p>{{ user_data.bio }}</p>
-<p>{{ user_data.phone }}</p>
-<img src="{{ user_data.photo.url }}" alt="{{user_data }} profile photo" />
+    <p>{{profile_data.bio}}</p>
+    <p class="email"><i class="fas fa-at"></i> {{user_data.email}}</p>
+    <div class="profile-details">
+      <span class="badge">
+        <i class="fas fa-location-pin"></i>
+        {{ profile_data.street }}
+      </span>
+      <span class="badge">
+        <i class="fas fa-map-location"></i>
+        Neighborhood: {{profile_data.neighborhood}}
+      </span>
+      <span class="badge">
+        <i class="fas fa-phone"> {{profile_data.phone}}</i>
+      </span>
+    </div>
+  </div>
+</div>
 
-<!--  -->
-{% if user.id == request.user.id %}
-<a href="{% url 'watch:edit_profile' user.pk %}">edit profile</a>
+<!-- user posts appear -->
+<div class="row mt-5">
+  <div class="col">
+    <h4 class="text-center">Your Posts appear here!</h4>
+  </div>
+</div>
 {% endif %} {% endblock %}
