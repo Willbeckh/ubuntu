@@ -10,6 +10,7 @@ class ProfileAdmin(admin.ModelAdmin):
         ('Phone', {'fields': ['phone']}),
         ('Street', {'fields': ['street']}),
         ('Neighborhood', {'fields': ['neighborhood']}),
+        ('Location', {'fields': ['location']}),
         ('Photo', {'fields': ['photo']}),
     ]
     
