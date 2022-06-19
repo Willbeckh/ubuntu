@@ -1,0 +1,19 @@
+{% extends 'base.html' %}
+
+<!-- user profile -->
+{% block content %}
+<!-- PROFILE -->
+<h3>my profile</h3>
+
+<p>{{ user_data }}</p>
+<p>{{ user_data.email }}</p>
+<p>{{ user_data.first_name }}</p>
+<p>{{ user_data.last_name }}</p>
+<p>{{ user_data.bio }}</p>
+<p>{{ user_data.phone }}</p>
+<img src="{{ user_data.photo.url }}" alt="{{user_data }} profile photo" />
+
+<!--  -->
+{% if user.id == request.user.id %}
+<a href="{% url 'watch:edit_profile' user.pk %}">edit profile</a>
+{% endif %} {% endblock %}
