@@ -38,7 +38,12 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    'watch_app'
+    # user custop app && third party
+    'watch_app',
+    # bs4
+    'bootstrap4',
+    # fontawesome
+    'fontawesomefree'
 ]
 
 MIDDLEWARE = [
