@@ -1,12 +1,14 @@
-from django.shortcuts import render, HttpResponseRedirect
+from django.shortcuts import redirect, render, HttpResponseRedirect
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.models import User
 from django.forms.models import inlineformset_factory
 from django.core.exceptions import PermissionDenied
 from django.views import View
+from django.contrib import messages
+from django.urls import reverse
 
 # local imports
-from .forms import UserForm
+from .forms import UserForm, CreateUserForm
 from .models import UserProfile
 
 
@@ -17,6 +19,39 @@ class HomeView(View):
             'title': 'Home',
         }
         return render(request, 'watch/index.html', context)
+
+
+# user register view
+class RegisterView(View):
+    """This class view is used to render the register page and execute user registrations."""
+    form = CreateUserForm()
+    ctx = {
+        'title': 'Register',
+        'form': form,
+    }
+
+    def get(self, request):
+        return render(request, 'watch/register.html', self.ctx)
+
+    def post(self, request):
+        form = CreateUserForm(request.POST)
+        if form.is_valid():
+            form.save()
+            form = CreateUserForm()  # reset form
+            messages.success(request, 'User created successfully.')
+            return redirect(reverse('watch:login'))
+        context = {
+            form: form,
+        }
+        return render(request, 'watch/register.html', context)
+
+
+class LoginView(View):
+    def get(self, request):
+        return render(request, 'watch/login.html')
+
+    def post(self, request):
+        pass
 
 
 @login_required
