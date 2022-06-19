@@ -14,6 +14,9 @@ class UserProfile(models.Model):
     # neighborhood = models.CharField(max_length=50, blank=True, null=True, default='')
     block = models.CharField(max_length=80, blank=True, null=True, default='')
 
+    def __str__(self):
+        return self.user.username
+
     def create_profile(sender, **kwargs):
         user = kwargs['instance']
         if kwargs['created']:
