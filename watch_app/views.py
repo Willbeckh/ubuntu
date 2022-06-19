@@ -86,9 +86,12 @@ class ProfileView(LoginRequiredMixin, View):
 
     def get(self, request):
         user = request.user
+        profile = UserProfile.objects.get(user=user)
         context = {
             'title': 'Profile',
-            'user_data': user
+            'user_data': user,
+            'profile_data': profile,
+            
         }
         return render(request, 'watch/profile.html', context)
 
@@ -101,7 +104,7 @@ def edit_user(request, pk):
     user_form = UserForm(instance=user)
 
     ProfileInlineFormSet = inlineformset_factory(
-        User, UserProfile, fields=('photo', 'bio', 'phone', 'block'))
+        User, UserProfile, fields=('photo', 'bio', 'phone', 'street', 'neighborhood'))
     formset = ProfileInlineFormSet(instance=user)
 
     if request.user.is_authenticated and request.user.id == user.id:
@@ -122,8 +125,8 @@ def edit_user(request, pk):
                     return HttpResponseRedirect('/profile/')
 
         return render(request, 'watch/edit_profile.html', {
-            "noodle": pk,
-            "noodle_form": user_form,
+            "pk": pk,
+            "user_form": user_form,
             "formset": formset,
         })
     else:
