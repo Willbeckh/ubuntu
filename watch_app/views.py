@@ -1,5 +1,6 @@
 from django.shortcuts import redirect, render, HttpResponseRedirect, get_object_or_404
 from django.contrib.auth import authenticate, login, logout
+from django.contrib.auth.mixins import LoginRequiredMixin
 from django.contrib.auth.decorators import login_required
 from django.forms.models import inlineformset_factory
 from django.core.exceptions import PermissionDenied
@@ -7,7 +8,6 @@ from django.contrib.auth.models import User
 from django.contrib import messages
 from django.urls import reverse
 from django.views import View
-from django.contrib.auth.mixins import LoginRequiredMixin
 
 # local imports
 from .forms import UserForm, CreateUserForm
@@ -19,8 +19,11 @@ class HomeView(LoginRequiredMixin, View):
     login_url = '/login/'
 
     def get(self, request):
+        user = request.user
+        profile = UserProfile.objects.get(user=user)
         context = {
             'title': 'Home',
+            'data': profile
         }
         return render(request, 'watch/index.html', context)
 
@@ -118,7 +121,6 @@ def edit_user(request, pk):
                 created_user = user_form.save(commit=False)
                 formset = ProfileInlineFormSet(
                     request.POST, request.FILES, instance=created_user)
-
                 if formset.is_valid():
                     created_user.save()
                     formset.save()
