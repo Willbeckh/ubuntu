@@ -32,16 +32,24 @@
           class="form-control"
         />
       </div>
-      <div class="form-group">
+      <div class="form-group input-group">
         <input
           type="password"
           placeholder="Password"
           name="password"
-          class="form-control"
+          class="form-control is-valid password-field"
+          required
         />
+        <div class="input-group-prepend">
+          <span class="btn btn-sm show-password input-group-text">show</span>
+        </div>
       </div>
       <div>
-        <input type="submit" class="btn btn-outline-primary btn-sm" />
+        <input
+          type="submit"
+          class="btn btn-outline-primary btn-sm is-valid"
+          required
+        />
       </div>
     </form>
 
@@ -50,4 +58,23 @@
     </p>
   </div>
 </div>
+
+<script>
+  // select btn
+  const btn = document.querySelector(".show-password");
+  btn.addEventListener("click", function () {
+    // get input field
+    const password = document.querySelector(".password-field");
+    if (password.type === "password") {
+      // change input type, & show password
+      password.type = "text";
+      btn.innerHTML = "-";
+    } else {
+      // change input type, & hide password
+      password.type = "password";
+      btn.innerHTML = "+";
+    }
+  });
+</script>
+
 {% endblock %}
