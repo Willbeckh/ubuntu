@@ -43,7 +43,9 @@ INSTALLED_APPS = [
     # bs4
     'bootstrap4',
     # fontawesome
-    'fontawesomefree'
+    'fontawesomefree',
+    # material
+    'material'
 ]
 
 MIDDLEWARE = [
