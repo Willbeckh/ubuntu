@@ -1,11 +1,13 @@
 from django.shortcuts import redirect, render, HttpResponseRedirect
+from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.decorators import login_required
-from django.contrib.auth.models import User
 from django.forms.models import inlineformset_factory
 from django.core.exceptions import PermissionDenied
-from django.views import View
+from django.contrib.auth.models import User
 from django.contrib import messages
 from django.urls import reverse
+from django.views import View
+from django.contrib.auth.mixins import LoginRequiredMixin
 
 # local imports
 from .forms import UserForm, CreateUserForm
@@ -13,7 +15,9 @@ from .models import UserProfile
 
 
 # Create your views here.
-class HomeView(View):
+class HomeView(LoginRequiredMixin,View):
+    login_url = '/login/'
+    
     def get(self, request):
         context = {
             'title': 'Home',
@@ -47,12 +51,32 @@ class RegisterView(View):
 
 
 class LoginView(View):
+    context = {
+        'title': 'Login'
+    }
     def get(self, request):
         return render(request, 'watch/login.html')
 
     def post(self, request):
-        pass
+        username = request.POST.get('username')
+        password = request.POST.get('password')
 
+        user = authenticate(request, username=username, password=password)
+
+        if user is not None:
+            login(request, user)
+            return redirect(reverse('watch:home'))
+        else:
+            messages.error(request, 'Invalid username or password.')
+            
+        return render(request, 'watch/login.html', self.context)
+
+
+# logout view
+class LogoutView(View):
+    def get(self, request):
+        logout(request)
+        return redirect("watch:home")
 
 @login_required
 def edit_user(request, pk):
@@ -65,7 +89,7 @@ def edit_user(request, pk):
         User, UserProfile, fields=('photo', 'bio', 'phone', 'block'))
     formset = ProfileInlineFormSet(instance=user)
 
-    if request.user.is_authenticated() and request.user.id == user.id:
+    if request.user.is_authenticated and request.user.id == user.id:
         if request.method == 'POST':
             user_form = UserForm(
                 request.POST, request.FILES, instance=user)
