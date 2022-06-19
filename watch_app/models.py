@@ -1,3 +1,4 @@
+from email.policy import default
 from django.db import models
 from django.contrib.auth.models import User
 from django.db.models.signals import post_save
@@ -8,9 +9,10 @@ class UserProfile(models.Model):
     user = models.OneToOneField(
         User, on_delete=models.CASCADE, related_name='user')
     photo = models.ImageField(
-        upload_to='profile_images', blank=True, null=True)
+        upload_to='profile_images', blank=True, null=True, default='profile_images/default.png')
     bio = models.TextField(blank=True, default='', null=True, max_length=500)
     phone = models.CharField(max_length=20, blank=True, null=True, default='')
+    created_on = models.DateTimeField(auto_now_add=True, null=True)
     # neighborhood = models.CharField(max_length=50, blank=True, null=True, default='')
     block = models.CharField(max_length=80, blank=True, null=True, default='')
 
