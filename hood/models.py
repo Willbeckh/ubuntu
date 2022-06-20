@@ -27,7 +27,7 @@ class Location(models.Model):
 
 
 
-class NeighbourHood(models.model):
+class NeighbourHood(models.Model):
     name = models.CharField(max_length=255)
     location = models.ForeignKey(Location, on_delete=models.CASCADE)
     occuppants_count = models.IntegerField(default=0)
@@ -108,7 +108,7 @@ class Post(models.Model):
     image = models.ImageField(upload_to="post-images", null=True)
     user = models.ForeignKey(User, on_delete=models.CASCADE)
     location = models.ForeignKey(Location, on_delete=models.CASCADE)
-    neighbourhood = models.ForeignKey(NeighbourHood, on_delete=models.CASCade , default=1)
+    neighbourhood = models.ForeignKey(NeighbourHood, on_delete=models.CASCADE , default=1)
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
 

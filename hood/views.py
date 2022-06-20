@@ -1,7 +1,7 @@
 from django.shortcuts import render , redirect , HttpResponseRedirect
 from django.contrib import messages
 from django.contrib.auth.models import User
-from hood.models import Profile
+from hood.models import *
 from django.contrib.auth.decorators import login_required
 from .forms import UserForm
 from django.forms.models import inlineformset_factory
@@ -16,7 +16,34 @@ from django.contrib.auth import authenticate , login , logout
 
 
 # Create your views here.
+@login_required()
 def Home(request):
+
+    # get current user 
+    current_user = request.user
+
+    # get current users neighbourhood
+
+    profile = Profile.objects.filter(user_id=current_user.id).first()
+
+    # check if user has neighbourhood
+    if profile is None:
+        profile = Profile.objects.filter(user_id=current_user.id).first()#get profile
+        posts = Post.objects.filter(user_id=current_user.id)
+        # get locations 
+        locations = Location.objects.all()
+        neighbourhood = NeighbourHood.objects.all()
+        contacts = Contact.objects.filter(user_id=current_user.id)
+        businesses = Business.objects.filter(user_id=current_user.id)
+
+        return render (request ,'hood/home.html' , {'posts':posts,'locations':locations,"neighbourhood":neighbourhood,"contacts":contacts,"businesses":businesses})
+    else:
+        neighbourhood = profile.neighbourhood
+
+        posts = Post.objects.filter(neighbourhood=neighbourhood).order_by("-created_at")
+        return render(request ,'hood/home.html',{'posts':posts})
+
+
 
     return render ( request ,'hood/home.html')
 
