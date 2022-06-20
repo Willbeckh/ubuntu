@@ -14,7 +14,7 @@ choice.forEach(function (choice) {
       facility.classList.remove("d-none");
       business.classList.add("d-none");
       news.classList.add("d-none");
-    } else if (choice == "News") {
+    } else if (choice == "Posts") {
       news.classList.remove("d-none");
       business.classList.add("d-none");
       facility.classList.add("d-none");
