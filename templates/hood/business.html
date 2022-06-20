@@ -1,0 +1,4 @@
+{% extends 'base-1.html' %}{% block title %}Businesses page{% endblock %}{% block content %} {{user}}{% for business in businesses %}
+<p>{{business.title}}</p>
+<p>{{business.description}}</p>
+{% endfor %} {% endblock %}
