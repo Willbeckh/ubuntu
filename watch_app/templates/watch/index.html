@@ -6,8 +6,11 @@
 <div class="row">
   <div class="col-md-12">
     <div class="banner rounded mt-5">
+      {% if data.neighborhood %}
       <h3 class="text-center">Welcome to {{data.neighborhood}}</h3>
-      '
+      {% else %}
+      <h3 class="text-center">Hello {{data}}</h3>
+      {% endif %}
       <div class="col-md-6 col-sm-10 mx-auto">
         <div class="input-group mb-2">
           <input
@@ -22,8 +25,77 @@
             </button>
           </div>
         </div>
+        <small class="text-muted"
+          >Search for: businesses, public facilities, news...</small
+        >
+      </div>
+    </div>
+    <div class="mini-nav">
+      <div class="text-center">
+        <a
+          href="#"
+          type="button"
+          role="button"
+          class="mini-nav__item nav-btn active"
+        >
+          Posts
+        </a>
+        <a href="#" type="button" class="mini-nav__item nav-btn">Facilities</a>
+        <a href="#" type="button" class="mini-nav__item nav-btn">Businesses</a>
+      </div>
+    </div>
+    <hr />
+  </div>
+</div>
+
+<!-- home content -->
+
+<div class="container mt-3">
+  <div class="row">
+    <div class="news-section">
+      <div class="card">
+        <div class="card-body">
+          <h3>News will appear here!</h3>
+        </div>
       </div>
     </div>
   </div>
+
+  <div class="row">
+    <div class="col-md-12">
+      <div class="facility-section p-2">
+        {% if facilities %} {% for facility in facilities %}
+        <div class="card facility-card">
+          <div class="card-body">
+            <p>{{facility.name}}</p>
+            <p>{{facility.location}}</p>
+          </div>
+          <div class="card-footer">
+            <small>{{facility.created_at }}</small>
+          </div>
+        </div>
+        {% endfor %} {% else %}
+        <p>No facilites found in your area.</p>
+        {% endif %}
+      </div>
+    </div>
+  </div>
+  <!--  -->
+
+  <div class="business-section d-none">
+    {% if business %}
+    <p>{{business}}</p>
+    {% else %}
+    <p>No businesses found in your area.</p>
+    {% endif %}
+  </div>
 </div>
+
+{% load static %}
+<!-- content filter code -->
+<script
+  src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"
+  referrerpolicy="no-referrer"
+></script>
+<script src="{% static 'script.js' %}"></script>
 {% endblock %}
