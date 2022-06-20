@@ -149,5 +149,36 @@ def edit_user(request , pk):
 
            
 
+# business page 
+@login_required()
+def Business(request):
+    # get current user 
+    current_user = request.user
+
+    print(current_user.id)
+
+    # get current users neighbourhood
+
+
+    profile = Profile.objects.filter(user_id=current_user.id).first()
+    print(profile)
+    print()
+
+    # check if user has neighbourhood
+    if profile is None:
+        profile = Profile.objects.filter(user_id=current_user.id).first()#get profile
+        posts = Post.objects.filter(user_id=current_user.id)
+        # get locations 
+        locations = Location.objects.all()
+        neighbourhood = NeighbourHood.objects.all()
+        contacts = Contact.objects.filter(user_id=current_user.id)
+        businesses = Business.objects.filter(user_id=current_user.id)
+
+        return render (request ,'hood/business.html' , {"posts":posts,"locations":locations,"neighbourhood":neighbourhood,"contacts":contacts,"businesses":businesses})
+    else:
+        neighbourhood = profile.neighbourhood
+
+        posts = Post.objects.filter(neighbourhood=neighbourhood).order_by("-created_at")
+        return render(request ,'hood/business.html',{'posts':posts})
 
 
