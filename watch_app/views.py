@@ -1,3 +1,4 @@
+from http.client import HTTPResponse
 from django.shortcuts import redirect, render, HttpResponseRedirect, get_object_or_404
 from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.mixins import LoginRequiredMixin
@@ -11,7 +12,7 @@ from django.views import View
 
 # local imports
 from .forms import UserForm, CreateUserForm
-from .models import UserProfile
+from .models import Business, Facility, UserProfile, Neighborhood
 
 
 # Create your views here.
@@ -19,12 +20,22 @@ class HomeView(LoginRequiredMixin, View):
     login_url = '/login/'
 
     def get(self, request):
-        user = request.user
-        profile = UserProfile.objects.get(user=user)
-        context = {
-            'title': 'Home',
-            'data': profile
-        }
+        try: 
+            user = request.user
+            profile = UserProfile.objects.get(user=user)            
+            facilities = Facility.objects.filter(neighborhood__pk=user.id)
+            # businesses = Business.objects.filter(neighborhood__pk=user.id) 
+            context = {
+                'title': 'Home',
+                'data': profile,
+                'facilities': facilities,
+                # 'businesses': businesses,
+            }
+            return render(request, 'watch/index.html', context)
+        except UserProfile.DoesNotExist:
+            profile = None
+            facilities = None
+            businesses = None            
         return render(request, 'watch/index.html', context)
 
 
@@ -89,12 +100,12 @@ class ProfileView(LoginRequiredMixin, View):
 
     def get(self, request):
         user = request.user
-        profile = UserProfile.objects.get(user=user)
+        profile = get_object_or_404(UserProfile, user=user)
         context = {
             'title': 'Profile',
             'user_data': user,
             'profile_data': profile,
-            
+
         }
         return render(request, 'watch/profile.html', context)
 
