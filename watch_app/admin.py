@@ -1,5 +1,5 @@
 from django.contrib import admin
-from watch_app.models import UserProfile, Neighborhood, Facility
+from watch_app.models import UserProfile, Neighborhood, Facility,Business
 
 
 # Register your models here.
@@ -21,7 +21,6 @@ class NeighborhoodAdmin(admin.ModelAdmin):
         (None, {'fields': ['name']}),
         ('Location', {'fields': ['location']}),
         ('Occupants', {'fields': ['occupants']}),
-        ('User', {'fields': ['user']}),
         ('Facilities', {'fields': ['facilities']}),
         # ('Business', {'fields': ['business']}),
     ]
@@ -39,3 +38,15 @@ class FacilityAdmin(admin.ModelAdmin):
     ]
     
 admin.site.register(Facility, FacilityAdmin)
+
+
+class BusinessAdmin(admin.ModelAdmin):
+    fieldsets = [
+        (None, {'fields': ['name']}),
+        ('User', {'fields': ['user']}),
+        ('email', {'fields': ['email']}),
+        ('location', {'fields': ['location']}),
+        ('Picture', {'fields': ['picture']}),
+    ]
+    
+admin.site.register(Business, BusinessAdmin)
