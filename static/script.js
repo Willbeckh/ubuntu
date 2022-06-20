@@ -32,5 +32,12 @@ $("document").ready(function () {
   cards.forEach(function (card) {
     $(card).css("background-color", new_color);
   });
-  // $(cards).css("background-color", new_color);
+
+  // set active class in category menu
+  // $(".mini-nav a").click(function () {
+  //   if (this.classList == "btn-active") {
+  //     $(this).removeClass("active");
+  //   }
+  //   $(this).addClass("btn-active");
+  // });
 });
