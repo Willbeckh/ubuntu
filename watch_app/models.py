@@ -51,7 +51,7 @@ class Neighborhood(models.Model):
         'Facility', blank=True, related_name='neighborhood')
     business = models.ManyToManyField(
         'Business', blank=True, related_name='neighborhood')
-    posts = models.ManyToManyField('Post', blank=True, related_name='neighborrhood')
+    posts = models.ManyToManyField('Post', blank=True, related_name='neighborhood')
 
     def __str__(self):
         return self.name
