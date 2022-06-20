@@ -26,7 +26,8 @@ class HomeView(LoginRequiredMixin, View):
                 neighborhood=profile.neighborhood)
             businesses = Business.objects.filter(
                 neighborhood=profile.neighborhood)
-            posts = Post.objects.filter(neighborhood=profile.neighborhood).order_by('-timestamp')
+            posts = Post.objects.filter(
+                neighborhood=profile.neighborhood).order_by('-timestamp')
             # posts = Post.objects.all().order_by('-timestamp')
             context = {
                 'title': 'Home',

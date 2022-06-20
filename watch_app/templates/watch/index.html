@@ -30,17 +30,10 @@
         >
       </div>
     </div>
-    <div class="mini-nav">
+    <div class="mini-nav list-group">
       <div class="text-center">
-        <a
-          href="#"
-          type="button"
-          role="button"
-          class="mini-nav__item nav-btn active"
-        >
-          Posts
-        </a>
         <a href="#" type="button" class="mini-nav__item nav-btn">Facilities</a>
+        <a href="#" type="button" class="mini-nav__item nav-btn"> Posts </a>
         <a href="#" type="button" class="mini-nav__item nav-btn">Businesses</a>
       </div>
     </div>
@@ -51,15 +44,16 @@
 <!-- home content -->
 
 <div class="container mt-3">
-  <div class="row">
-    <div class="news-section">
-      <div class="card">
-        <div class="card-body">
-          <h3>News will appear here!</h3>
-        </div>
-      </div>
+  <div class="news-section d-none">
+    {% if posts %}
+    <div class="card">
+      <div class="card-body">{{ posts }}</div>
     </div>
+    {% else %}
+    <h3 class="text-center">Oops. no news available currently</h3>
+    {% endif %}
   </div>
+  <!--  -->
 
   <div class="row">
     <div class="col-md-12">
@@ -81,10 +75,9 @@
     </div>
   </div>
   <!--  -->
-
   <div class="business-section d-none">
-    {% if business %}
-    <p>{{business}}</p>
+    {% if businesses %}
+    <p>{{businesses}}</p>
     {% else %}
     <p>No businesses found in your area.</p>
     {% endif %}
