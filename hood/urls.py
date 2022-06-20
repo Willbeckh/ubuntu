@@ -7,6 +7,8 @@ urlpatterns = [
     path('register/', views.Register , name="register"),
     path('logout/', views.LogoutUser , name="logout"),
     path('profile/', views.profile , name="profile"),
+    path('business/', views.Business , name="business"),
+
     path('profile/update/<int:pk>', views.edit_user, name='update'),
 
 
