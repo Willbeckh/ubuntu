@@ -104,7 +104,6 @@ def LogoutUser(request):
     
 
 
-
     return redirect('login')
 
 
@@ -112,7 +111,17 @@ def LogoutUser(request):
 
 def profile(request):
 
-    return render(request, 'hood/profile.html')
+    current_user = request.user
+    profile = Profile.objects.filter(user=current_user.id).first()
+    posts = Post.objects.filter(user_id=current_user.id)
+    # getlocations
+    locations = Location.objects.all()
+    neighbourhood = NeighbourHood.objects.all()
+    businesses = Business.objects.filter(user_id=current_user.id)
+    contacts = Contact.objects.filter(user_id=current_user.id)
+    return render(request, 'hood/profile.html', {"profile":profile,"posts":posts,"locations":locations,"neighbourhood":neighbourhood,"businesses":businesses,"contacts":contacts})
+
+
 
 
 @login_required()
