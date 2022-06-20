@@ -151,7 +151,7 @@ def edit_user(request , pk):
 
 # business page 
 @login_required()
-def Business(request):
+def Businesses(request):
     # get current user 
     current_user = request.user
 
@@ -176,9 +176,10 @@ def Business(request):
 
         return render (request ,'hood/business.html' , {"posts":posts,"locations":locations,"neighbourhood":neighbourhood,"contacts":contacts,"businesses":businesses})
     else:
+        
         neighbourhood = profile.neighbourhood
-
-        posts = Post.objects.filter(neighbourhood=neighbourhood).order_by("-created_at")
-        return render(request ,'hood/business.html',{'posts':posts})
+        #get all biashara in the hood
+        businesses = Business.objects.filter(neighbourhood=profile.neighbourhood) #.order_by("-created_at")
+        return render(request ,'hood/business-page.html',{"businesses":businesses})
 
 
