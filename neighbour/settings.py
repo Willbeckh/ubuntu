@@ -38,7 +38,9 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    'hood',
+    'hood.apps.HoodConfig',
+    'material',
+
 ]
 
 MIDDLEWARE = [

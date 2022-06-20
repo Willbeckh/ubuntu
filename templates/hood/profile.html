@@ -1,1 +1,3 @@
-{% extends 'base.html' %}{% block title %}Profile page{% endblock %}{% block content %} {{user.username}} {% endblock %}
+{% extends 'base.html' %}{% block title %}Profile page{% endblock %}{% block content %} {{user.username}}{{user.id}}
+<img src="{{user.profile.avatar.url}}" alt="" height="100">
+<a href="{% url 'update' user.pk %} ">update</a>{% endblock %}
