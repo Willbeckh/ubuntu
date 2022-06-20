@@ -16,15 +16,20 @@ from django.contrib.auth import authenticate , login , logout
 
 
 # Create your views here.
-@login_required()
+@login_required(login_url='login')
 def Home(request):
 
     # get current user 
     current_user = request.user
 
+    print(current_user.id)
+
     # get current users neighbourhood
 
+
     profile = Profile.objects.filter(user_id=current_user.id).first()
+    print(profile)
+    print()
 
     # check if user has neighbourhood
     if profile is None:
@@ -36,7 +41,7 @@ def Home(request):
         contacts = Contact.objects.filter(user_id=current_user.id)
         businesses = Business.objects.filter(user_id=current_user.id)
 
-        return render (request ,'hood/home.html' , {'posts':posts,'locations':locations,"neighbourhood":neighbourhood,"contacts":contacts,"businesses":businesses})
+        return render (request ,'hood/home.html' , {"posts":posts,"locations":locations,"neighbourhood":neighbourhood,"contacts":contacts,"businesses":businesses})
     else:
         neighbourhood = profile.neighbourhood
 
@@ -45,7 +50,6 @@ def Home(request):
 
 
 
-    return render ( request ,'hood/home.html')
 
 def LoginPage(request):
     # grab the fields from the form

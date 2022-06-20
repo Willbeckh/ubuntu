@@ -9,6 +9,15 @@ from django.db.models.signals import post_save
 
 
 
+
+
+
+# Create your models here.
+
+
+
+
+
 class Location(models.Model):
     name = models.CharField(max_length=30)
     created_at = models.DateTimeField(auto_now_add=True)
@@ -32,30 +41,20 @@ class NeighbourHood(models.Model):
     location = models.ForeignKey(Location, on_delete=models.CASCADE)
     occuppants_count = models.IntegerField(default=0)
     admin = models.ForeignKey(User, on_delete=models.CASCADE)
-    created_at = models.DateTimeField(auto_now_add=True)
-    updated_at = models.DateTimeField(auto_now=True)
 
 
     def __str__(self):
         return self.name
 
 
-
-
-# Create your models here.
-
 class Profile(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE)
     avatar = models.ImageField(upload_to='profile', default="avatar.png")
     bio = models.TextField(null=True, blank=True)
-    email = models.EmailField(max_length=255, blank=True, null=True)
-    location = models.ForeignKey(Location,on_delete=models.CASCADE)
-    neighbourhood = models.ForeignKey(NeighbourHood, on_delete=models.CASCADE)
-    created_at = models.DateTimeField(auto_now_add=True)
-    updated_at = models.DateTimeField(auto_now=True)
-
-
-
+    email = models.EmailField(max_length=100, blank=True, null=True)
+    location = models.ForeignKey(Location, null="false" ,on_delete=models.CASCADE)
+    neighbourhood = models.ForeignKey(NeighbourHood, null="false", on_delete=models.CASCADE)
+   
 
 
     def create_profile(sender, **kwargs):
@@ -84,22 +83,27 @@ class Business(models.Model):
     email = models.EmailField(max_length=50)
     description = models.TextField(blank=True, null=True)
     user = models.ForeignKey(User, on_delete=models.CASCADE)
-    created_at = models.DateTimeField(auto_now_add=True)
-    updated_at = models.DateTimeField(auto_now=True)
-
+ 
+ 
 
 
     def __str__(self):
         return self.name
 
 class  Contact(models.Model):
+
     name = models.CharField(max_length=50)
     email = models.EmailField(max_length=50 , blank=True, null=True)
     user = models.ForeignKey(User, on_delete=models.CASCADE)
     neighbourhood = models.ForeignKey(NeighbourHood, on_delete=models.CASCADE)
     created_at = models.DateTimeField(auto_now=True)
-    updated_at = models.DateTimeField(auto_now=True)
 
+
+
+    def __str__(self):
+
+
+        return self.name
 
 
 class Post(models.Model):
@@ -110,7 +114,6 @@ class Post(models.Model):
     location = models.ForeignKey(Location, on_delete=models.CASCADE)
     neighbourhood = models.ForeignKey(NeighbourHood, on_delete=models.CASCADE , default=1)
     created_at = models.DateTimeField(auto_now_add=True)
-    updated_at = models.DateTimeField(auto_now=True)
 
 
 

@@ -81,7 +81,7 @@ WSGI_APPLICATION = 'neighbour.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql',
-        'NAME': 'hood',
+        'NAME': 'yara',
         'USER': 'moringa',
         'PASSWORD': 'newpassword',
         'HOST': 'localhost',
