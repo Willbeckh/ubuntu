@@ -1,8 +1,7 @@
-import email
-from email.policy import default
-from django.db import models
-from django.contrib.auth.models import User
 from django.db.models.signals import post_save
+from cloudinary.models import CloudinaryField
+from django.contrib.auth.models import User
+from django.db import models
 
 
 # Create your models here.
@@ -47,7 +46,10 @@ class Neighborhood(models.Model):
     created_on = models.DateTimeField(auto_now_add=True, null=True)
     user = models.ForeignKey(User, on_delete=models.CASCADE,
                              related_name='neighborhood', blank=True, null=True)
-    # business = models.ForeignKey('Business', on_delete=models.CASCADE, blank=True, null=True)
+    facilities = models.ManyToManyField(
+        'Facility', blank=True, related_name='neighborhood')
+    business = models.ManyToManyField(
+        'Business', blank=True, related_name='business')
 
     def __str__(self):
         return self.name
@@ -68,7 +70,8 @@ class Neighborhood(models.Model):
         pass
 
     def count_occupants(self):
-        pass
+        self.occupants = self.user.userprofile.count()
+        return self.occupants
 
 
 class Facility(models.Model):
@@ -80,8 +83,22 @@ class Facility(models.Model):
         upload_to='facility_images', blank=True, null=True)
     location = models.CharField(
         max_length=50, blank=True, null=True, default='')
-    neighborhood = models.ManyToManyField(
-        Neighborhood, related_name='facilities', blank=True)
+    created_at = models.DateTimeField(auto_now_add=True, null=True)
+
+    def __str__(self):
+        return self.name
+
+
+# Businessess model
+class Business(models.Model):
+    user = models.ForeignKey(
+        User, on_delete=models.CASCADE, related_name='business')
+    name = models.CharField(max_length=100, blank=True, null=True, default='')
+    email = models.CharField(max_length=80, blank=True, null=True, default='')
+    picture = models.ImageField(
+        upload_to='business', blank=True, null=True)
+    location = models.CharField(
+        max_length=50, blank=True, null=True, default='')
     created_at = models.DateTimeField(auto_now_add=True, null=True)
 
     def __str__(self):
