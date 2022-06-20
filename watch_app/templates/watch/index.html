@@ -30,7 +30,7 @@
         >
       </div>
     </div>
-    <div class="mini-nav list-group">
+    <div class="mini-nav">
       <div class="text-center">
         <a href="#" type="button" class="mini-nav__item nav-btn">Facilities</a>
         <a href="#" type="button" class="mini-nav__item nav-btn"> Posts </a>
@@ -55,11 +55,12 @@
   </div>
   <!--  -->
 
-  <div class="row">
-    <div class="col-md-12">
-      <div class="facility-section p-2">
-        {% if facilities %} {% for facility in facilities %}
-        <div class="card facility-card">
+  <div class="facility-section">
+    <div class="row p-2">
+      {% for facility in facilities %}
+      <div class="col-12 col-md-6 col-sm-12 col-lg-4">
+        {% if facilities %}
+        <div class="card facility-card mb-2">
           <div class="card-body">
             <p>{{facility.name}}</p>
             <p>{{facility.location}}</p>
@@ -68,10 +69,11 @@
             <small>{{facility.created_at }}</small>
           </div>
         </div>
-        {% endfor %} {% else %}
+        {% else %}
         <p>No facilites found in your area.</p>
         {% endif %}
       </div>
+      {% endfor %}
     </div>
   </div>
   <!--  -->
