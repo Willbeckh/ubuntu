@@ -36,6 +36,11 @@
   border-bottom: 1px solid #000;
 }
 
+.btn-active {
+  background: #d9f9e5;
+  color: #111a43;
+  border-bottom: 1px solid #000;
+}
 /* home page style end*/
 
 /* user profile */
