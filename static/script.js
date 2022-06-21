@@ -7,17 +7,14 @@ choice.forEach(function (choice) {
     const facility = document.querySelector(".facility-section");
     const news = document.querySelector(".news-section");
     if (choice === "Businesses") {
-      window.location.reload();
       business.classList.remove("d-none");
       facility.classList.add("d-none");
       news.classList.add("d-none");
     } else if (choice === "Facilities") {
-      window.location.reload();
       facility.classList.remove("d-none");
       business.classList.add("d-none");
       news.classList.add("d-none");
     } else if (choice == "Posts") {
-      window.location.reload();
       news.classList.remove("d-none");
       business.classList.add("d-none");
       facility.classList.add("d-none");
@@ -32,10 +29,7 @@ $("document").ready(function () {
   const colors = ["#b5e48c", "#f1faee", "#F6F3FC", "#E8F2F8", "#E1FDFB"];
   let new_color = colors[Math.floor(Math.random() * colors.length)];
 
-  cards.forEach(function (card) {
-    $(card).css("background-color", new_color);
-  });
-
+  $(cards).css("background-color", new_color);
   // set active class in category menu
   // $(".mini-nav a").click(function () {
   //   if (this.classList == "btn-active") {
