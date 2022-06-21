@@ -9,7 +9,7 @@ urlpatterns = [
     path('profile/', views.profile , name="profile"),
     path('profile/update/', views.Update_Profile , name="update_profile"),
 
-    path('business/', views.Businesses , name="business"),
+    path('business/', views.Businesses , name="business"),#businessroute
 
     path('profile/update/<int:pk>', views.edit_user, name='update'),
 
