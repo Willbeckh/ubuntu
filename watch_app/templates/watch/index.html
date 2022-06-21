@@ -12,13 +12,15 @@
       <h3 class="text-center">Hello {{data}}</h3>
       {% endif %}
       <div class="col-md-6 col-sm-10 mx-auto">
-        <form action="/">
+        <form action="{% url 'watch:search' %}">
           <div class="input-group mb-2">
             <input
               type="search"
+              name="search_query"
               class="form-control col-form-label-lg"
               id="inlineFormInputGroup"
               placeholder="Search..."
+              required
             />
             <div class="input-group-append">
               <button class="btn btn-outline-info" type="submit">
@@ -45,14 +47,31 @@
 <!-- home content -->
 
 <div class="container mt-3">
+  <h4 class="text-center">{{message}}</h4>
   <div class="news-section d-none">
-    {% if posts %} {% for post in posts %}
-    <div class="card">
-      <div class="card-body">{{ post }}</div>
+    <div class="row">
+      {% if posts %} {% for post in posts %}
+      <div class="col-12 col-lg-4 col-md-6 col-sm-12">
+        <div class="accordion" id="newsTabs">
+          <div class="card mb-2 shadow">
+            <div class="card-header">
+              <small class="">{{post.user}}</small>
+              <span class="ml-5">
+                <small>{{post.timestamp|timesince}} ago.</small></span
+              >
+            </div>
+            <div class="card-body">
+              <h4>{{post}}</h4>
+
+              {{post.body}}
+            </div>
+          </div>
+        </div>
+      </div>
+      {% endfor %} {% else %}
+      <h3 class="text-center">Oops. no news available currently</h3>
+      {% endif %}
     </div>
-    {% endfor %} {% else %}
-    <h3 class="text-center">Oops. no news available currently</h3>
-    {% endif %}
   </div>
   <!--  -->
 
@@ -60,18 +79,24 @@
     <div class="row p-2">
       {% if facilities %} {% for facility in facilities %}
       <div class="col-12 col-md-6 col-sm-12 col-lg-4">
-        <div class="card facility-card mb-2 shadow-sm bg-white">
+        <div class="card facility-card mb-2 shadow-sm">
           <div class="card-body">
             <h3>{{facility.name}}</h3>
-            <small class="text-muted">{{facility.created_at|date }}</small>
-            <!-- <i class="fas fa-atom position-absolute"></i> -->
-            <p>{{facility.location}}</p>
-            <small><i class="fas fa-phone"></i>{{facility.contact}}</small>
+            <div class="details">
+              <p><i class="fas fa-at"></i> {{ facility.email}}</p>
+              <p><i class="fas fa-phone"></i> {{ facility.contact}}</p>
+              <p><i class="fas fa-location-pin"></i> {{ facility.location}}</p>
+            </div>
           </div>
-          <div class="card-footer"></div>
+          <div class="card-footer">
+            <small class="badge-pill text-muted"
+              >Est. {{facility.created_at|date}}</small
+            >
+          </div>
         </div>
       </div>
       {% endfor %} {% else %}
+      <!-- <h3 class="text-center">Oops. no news available currently</h3> -->
       <p class="text-center">No facilites found in your area.</p>
       {% endif %}
     </div>
