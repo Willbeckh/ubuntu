@@ -52,18 +52,21 @@
     <div class="row">
       {% if posts %} {% for post in posts %}
       <div class="col-12 col-lg-4 col-md-6 col-sm-12">
-        <div class="accordion" id="newsTabs">
+        <div>
           <div class="card mb-2 shadow">
             <div class="card-header">
-              <small class="">{{post.user}}</small>
+              <small class="badge-pill bg-primary text-light"
+                ><b>{{post.user}}</b></small
+              >
               <span class="ml-5">
                 <small>{{post.timestamp|timesince}} ago.</small></span
               >
             </div>
-            <div class="card-body">
-              <h4>{{post}}</h4>
+            <div class="card-body news-card">
+              <h4><strong>{{post}}</strong></h4>
 
-              {{post.body}}
+              <p class="post-body">{{post.body|truncatechars:60}}</p>
+              <small class="badge-pill bg-secondary">{{data.neighborhood}}</small>
             </div>
           </div>
         </div>
@@ -104,11 +107,27 @@
 
   <!--  -->
   <div class="business-section d-none">
-    {% if businesses %}
-    <p>{{businesses}}</p>
-    {% else %}
-    <p>No businesses found in your area.</p>
-    {% endif %}
+    <div class="row">
+      {% if businesses %} {% for business in businesses %}
+      <div class="col-12 col-md-6 col-sm-12 col-lg-4">
+        <div class="card mb-2">
+          <div class="card-body">
+            <h4 class="biz-name">{{business}}</h4>
+            <div class="img-d">
+              {% load static %}
+              <img src="{% static 'media/deliver.gif '%}" alt="" class="w-75" />
+            </div>
+            <p><i class="fas fa-at"></i> :{{ business.email }}</p>
+            <small
+              ><i class="fas fa-location-pin"></i>{{business.location}}</small
+            >
+          </div>
+        </div>
+      </div>
+      {% endfor %} {% else %}
+      <p>No businesses found in your area.</p>
+      {% endif %}
+    </div>
   </div>
 </div>
 
