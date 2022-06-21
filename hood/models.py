@@ -87,6 +87,8 @@ class Business(models.Model):
     created_at = models.DateTimeField(auto_now=True)
  
  
+    def create_business(self):
+        self.save()
 
 
     def __str__(self):
