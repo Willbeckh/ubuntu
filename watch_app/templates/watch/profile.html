@@ -2,16 +2,16 @@
 
 <!-- user profile -->
 {% block content %}
-<div class="row profile-banner">
+<div class="row profile-banner justify-content-center p-3">
   {% if profile_data %}
-  <div class="col col-sm-10 col-md-3 p-2 rounded user-img-section">
+  <div class="col col-sm-12 col-md-3 p-2 rounded user-img-section">
     <img
       src="{{ profile_data.image_url|default_if_none:'media/default.jpg' }}"
       width="50px"
       class="user-img"
     />
   </div>
-  <div class="col col-sm-10 col-md-8 p-3 rounded user-details">
+  <div class="col-12 col-sm-12 col-md-8 p-3 rounded user-details">
     <div>
       <span class="username">
         {{user_data.first_name}} {{user_data.last_name}}
@@ -45,9 +45,20 @@
 </div>
 
 <!-- user posts appear -->
-<div class="row mt-5">
-  <div class="col">
-    <h4 class="text-center">Your Posts appear here!</h4>
+<div class="posts-section mt-5">
+  <div class="row mt-5">
+    {% if posts %} {% for post in posts %}
+    <div class="col-12 col-md-6 col-sm-12 col-lg-4">
+      <div class="card mb-2">
+        <div class="card-body">{{ post }}</div>
+      </div>
+    </div>
+    {% endfor %} {% else %}
+    <h4 class="text-center">
+      <b> You have no posts yet.</b>
+      <a href="{% url 'watch:post' %}">create one.</a>
+    </h4>
+    {% endif %}
   </div>
 </div>
 {% endif %} {% endblock %}
