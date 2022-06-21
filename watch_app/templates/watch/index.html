@@ -12,21 +12,23 @@
       <h3 class="text-center">Hello {{data}}</h3>
       {% endif %}
       <div class="col-md-6 col-sm-10 mx-auto">
-        <div class="input-group mb-2">
-          <input
-            type="search"
-            class="form-control col-form-label-lg"
-            id="inlineFormInputGroup"
-            placeholder="Search..."
-          />
-          <div class="input-group-append">
-            <button class="btn btn-outline-info" type="button">
-              <i class="fas fa-search"></i>
-            </button>
+        <form action="/">
+          <div class="input-group mb-2">
+            <input
+              type="search"
+              class="form-control col-form-label-lg"
+              id="inlineFormInputGroup"
+              placeholder="Search..."
+            />
+            <div class="input-group-append">
+              <button class="btn btn-outline-info" type="submit">
+                <i class="fas fa-search"></i>
+              </button>
+            </div>
           </div>
-        </div>
+        </form>
         <small class="text-muted"
-          >Search for: businesses, public facilities, news...</small
+          >Find: businesses, public facilities, news... around you</small
         >
       </div>
     </div>
@@ -40,7 +42,6 @@
     <hr />
   </div>
 </div>
-
 <!-- home content -->
 
 <div class="container mt-3">
@@ -62,12 +63,13 @@
         {% if facilities %}
         <div class="card facility-card mb-2">
           <div class="card-body">
-            <p>{{facility.name}}</p>
+            <h3>{{facility.name}}</h3>
+            <small class="text-muted">{{facility.created_at|date }}</small>
+            <!-- <i class="fas fa-atom position-absolute"></i> -->
             <p>{{facility.location}}</p>
+            <small><i class="fas fa-phone"></i>{{facility.contact}}</small>
           </div>
-          <div class="card-footer">
-            <small>{{facility.created_at }}</small>
-          </div>
+          <div class="card-footer"></div>
         </div>
         {% else %}
         <p>No facilites found in your area.</p>
@@ -76,6 +78,7 @@
       {% endfor %}
     </div>
   </div>
+
   <!--  -->
   <div class="business-section d-none">
     {% if businesses %}
