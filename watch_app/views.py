@@ -163,14 +163,16 @@ class PostView(LoginRequiredMixin, CreateView):
 
     def form_valid(self, form):
         form.instance.user = self.request.user
+        profile = UserProfile.objects.get(user=form.instance.user)
+        # hood = get_object_or_404(Neighborhood, name=profile.neighborhood)
+        # print('hood: ', hood)
+        # hood.posts.set([form.instance])
         return super().form_valid(form)
 
 
 # search view method
 class SearchView(LoginRequiredMixin, View):
     """This class view is used to render the search page and execute search queries."""
-    # business = Business.objects.all()
-    # facility = Facility.objects.all()
 
     def get(self, request):
         try:
