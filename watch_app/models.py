@@ -134,7 +134,7 @@ class Business(models.Model):
         return self.objects.get(id=id)
 
     def search_business(self, query):
-        return self.objects.filter(name__icontains=query)
+        return Business.objects.filter(name__icontains=query)
 
 
 # post created by users
