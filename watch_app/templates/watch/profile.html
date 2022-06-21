@@ -6,7 +6,7 @@
   {% if profile_data %}
   <div class="col col-sm-12 col-md-3 p-2 rounded user-img-section">
     <img
-      src="{{ profile_data.image_url|default_if_none:'media/default.jpg' }}"
+      src="{{ profile_data.image_url|default_if_none:'default.jpg' }}"
       width="50px"
       class="user-img"
     />
@@ -16,6 +16,7 @@
       <span class="username">
         {{user_data.first_name}} {{user_data.last_name}}
         <small>({{user_data}})</small>
+        <!-- username -->
       </span>
       <!-- edit btn -->
       {% if user.id == request.user.id %}
@@ -23,6 +24,11 @@
         <i class="fas fa-pen"></i>
       </a>
       {% endif %}
+      <span class="ml-4"
+        ><a href="{% url 'watch:post' %}"
+          ><i class="fas fa-add"></i>post</a
+        ></span
+      >
     </div>
 
     <p>{{profile_data.bio}}</p>
@@ -50,7 +56,17 @@
     {% if posts %} {% for post in posts %}
     <div class="col-12 col-md-6 col-sm-12 col-lg-4">
       <div class="card mb-2">
-        <div class="card-body">{{ post }}</div>
+        <div class="card-body">
+          <h4><strong> {{post }}</strong></h4>
+          <span class="positon-absolute">
+            <i class="fas fa-trash"></i>
+          </span>
+          <hr />
+          <p class="post-body">{{post.body}}</p>
+          <small class="badge-pill bg-info text-light"
+            >{{post.timestamp|time}}</small
+          >
+        </div>
       </div>
     </div>
     {% endfor %} {% else %}
