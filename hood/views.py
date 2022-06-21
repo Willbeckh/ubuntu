@@ -192,3 +192,88 @@ def Businesses(request):
         return render(request ,'hood/business-page.html',{"businesses":businesses})
 
 
+# profile update function 
+@login_required()
+def Update_Profile(request):
+
+    if request.method == 'POST':
+
+
+
+        current_user = request.user
+
+        profile = Profile.objects.filter(user=current_user).first()
+        # neighbourhood = NeighbourHood.objects.filter(user=current_user).first()
+        
+        print (profile)
+        
+
+        first_name = request.POST['first_name']
+        last_name = request.POST['last_name']
+        email = request.POST['email']
+
+        profile_pic = request.FILES['profile_pic']
+
+        # profile.first_name = first_name
+        profile.avatar = profile_pic
+
+        profile.save()
+        
+        name = request.POST["first_name"]+ " " + request.POST["last_name"]
+
+        location = request.POST["location"]
+        neighbourhood = request.POST['neighbourhood']
+
+
+        print(neighbourhood)
+
+        # neighbourhood.name = neighbourhood_loc
+        # neighbourhood.location = location
+        # neighbourhood.save()
+
+
+        # proofcheckthelocation
+
+        if location == "":
+
+            location = None
+        else:
+            location = Location.objects.get(name=location)
+
+        # proofcheck if ithashood
+
+        if neighbourhood == "":
+            neighbourhood = None
+        else:
+            neighbourhood = NeighbourHood.objects.get(name=neighbourhood)
+
+
+        # profile.first_name = first_name
+        # profile.avatar = profile_pic
+
+        # profile.save()
+        
+
+        user = User.objects.get(id= current_user.id)
+
+
+
+        user.first_name = first_name
+        user.last_name = last_name
+        user.email = email
+        user.profile.neighbourhood = neighbourhood
+        print(user.profile.neighbourhood)
+       
+
+        user.save()
+        user.profile.save()
+
+
+        return redirect('profile')
+
+    else:
+        return render(request, "hood/profile.html", {"danger":"profileupdatefailed"})
+
+
+
+
