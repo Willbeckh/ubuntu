@@ -28,7 +28,7 @@ class HomeView(LoginRequiredMixin, View):
                 neighborhood=profile.neighborhood)
             businesses = Business.objects.filter(
                 neighborhood=profile.neighborhood)
-            posts = Post.objects.all().order_by('-timestamp')
+            posts = Post.objects.all().order_by('-timestamp')[:12]
             context = {
                 'title': 'Home',
                 'data': profile,
@@ -61,8 +61,9 @@ class RegisterView(View):
         if form.is_valid():
             form.save()
             form = CreateUserForm()  # reset form
-            messages.success(request, 'User created successfully.')
+            messages.success(request, 'Registered successfully.')
             return redirect(reverse('watch:login'))
+        messages.error(request, 'Registration failed.')
         context = {
             form: form,
         }
