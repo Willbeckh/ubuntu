@@ -1,0 +1,80 @@
+{% extends 'base.html' %}
+
+<!-- user profile -->
+{% block content %}
+<div class="row profile-banner justify-content-center p-3">
+  {% if profile_data %}
+  <div class="col col-sm-12 col-md-3 p-2 rounded user-img-section">
+    <img
+      src="{{ profile_data.image_url|default_if_none:'default.jpg' }}"
+      width="50px"
+      class="user-img"
+    />
+  </div>
+  <div class="col-12 col-sm-12 col-md-8 p-3 rounded user-details">
+    <div>
+      <span class="username">
+        {{user_data.first_name}} {{user_data.last_name}}
+        <small>({{user_data}})</small>
+        <!-- username -->
+      </span>
+      <!-- edit btn -->
+      {% if user.id == request.user.id %}
+      <a href="{% url 'watch:edit_profile' user.pk %}">
+        <i class="fas fa-pen"></i>
+      </a>
+      {% endif %}
+      <span class="ml-4"
+        ><a href="{% url 'watch:post' %}"
+          ><i class="fas fa-add"></i>post</a
+        ></span
+      >
+    </div>
+
+    <p>{{profile_data.bio}}</p>
+    <p class="email"><i class="fas fa-at"></i> {{user_data.email}}</p>
+    <div class="profile-details">
+      <span class="badge">
+        <i class="fas fa-location-pin"></i>
+        {{ profile_data.street }}
+      </span>
+      <span class="badge">
+        <i class="fas fa-map-location"></i>
+        Neighborhood: {{profile_data.neighborhood}}
+      </span>
+      <span class="badge">
+        <i class="fas fa-phone"></i>
+        {{profile_data.phone}}
+      </span>
+    </div>
+  </div>
+</div>
+
+<!-- user posts appear -->
+<div class="posts-section mt-5">
+  <div class="row mt-5">
+    {% if posts %} {% for post in posts %}
+    <div class="col-12 col-md-6 col-sm-12 col-lg-4">
+      <div class="card mb-2">
+        <div class="card-body">
+          <h4><strong> {{post }}</strong></h4>
+          <span class="positon-absolute">
+            <i class="fas fa-trash"></i>
+          </span>
+          <hr />
+          <p class="post-body">{{post.body}}</p>
+          <small class="badge-pill bg-info text-light"
+            >{{post.timestamp|time}}</small
+          >
+        </div>
+      </div>
+    </div>
+    {% endfor %} {% else %}
+    <h4 class="text-center">
+      <b> You have no posts yet.</b>
+      <a href="{% url 'watch:post' %}">create one.</a>
+    </h4>
+    {% endif %}
+  </div>
+</div>
+{% endif %} {% endblock %}

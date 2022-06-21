@@ -1,73 +1,62 @@
-<nav class="navbar navbar-expand-lg navbar-light bg-light">
-  <a class="navbar-brand" href="{% url 'watch:home' %}">N!</a>
-  <button
-    class="navbar-toggler"
-    type="button"
-    data-toggle="collapse"
-    data-target="#navbarSupportedContent"
-    aria-controls="navbarSupportedContent"
-    aria-expanded="false"
-    aria-label="Toggle navigation"
-  >
-    <span class="navbar-toggler-icon"></span>
-  </button>
+<nav class="navbar sticky-top navbar-expand-lg navbar-light bg-light">
+  <div class="container">
+    <a class="navbar-brand" href="{% url 'watch:home' %}"
+      ><i class="fab fa-ubuntu fa-xl text-info"></i
+      ><span class="logo">N.</span></a
+    >
+    <button
+      class="navbar-toggler"
+      type="button"
+      data-toggle="collapse"
+      data-target="#navbarSupportedContent"
+      aria-controls="navbarSupportedContent"
+      aria-expanded="false"
+      aria-label="Toggle navigation"
+    >
+      <span class="navbar-toggler-icon"></span>
+    </button>
 
-  <div class="collapse navbar-collapse" id="navbarSupportedContent">
-    <ul class="navbar-nav mr-auto">
-      <li class="nav-item active">
-        <a class="nav-link" href="{% url 'watch:home' %}"
-          >Home <span class="sr-only">(current)</span></a
-        >
-      </li>
-      <li class="nav-item">
-        <a class="nav-link" href="#">About</a>
-      </li>
-      <li class="nav-item dropdown">
-        <a
-          class="nav-link dropdown-toggle"
-          href="#"
-          id="navbarDropdown"
-          role="button"
-          data-toggle="dropdown"
-          aria-expanded="false"
-        >
-          Neighborhoods
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <div class="mx-auto">
+        <ul class="navbar-nav mr-auto">
+          <li class="nav-item active">
+            <a class="nav-link" href="{% url 'watch:home' %}"
+              >Home <span class="sr-only">(current)</span></a
+            >
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="#">About</a>
+          </li>
+          <!--  -->
+        </ul>
+      </div>
+      <div class="auth-btns m-1">
+        {% if user.is_anonymous %}
+        <a href="{% url 'watch:login' %}" class="btn btn-outline-info btn-sm">
+          Login
         </a>
-        <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-          <a class="dropdown-item" href="#">Business</a>
-          <a class="dropdown-item" href="#">Check out</a>
-          <div class="dropdown-divider"></div>
-          <a class="dropdown-item" href="#">Another Banger</a>
-        </div>
-      </li>
-    </ul>
-    <div class="auth-btns m-1">
-      {% if user.is_anonymous %}
-      <a href="{% url 'watch:login' %}" class="btn btn-outline-info btn-sm">
-        Login
-      </a>
-      <a
-        href="{% url 'watch:register' %}"
-        class="btn btn-outline-primary me-2 btn-sm"
-      >
-        Register
-      </a>
-      {% else %}
-      <a href="{% url 'watch:logout' %}" class="btn btn-outline-warning btn-sm">
-        Logout
-      </a>
-      {% endif %}
+        <a
+          href="{% url 'watch:register' %}"
+          class="btn btn-outline-primary me-2 btn-sm"
+        >
+          Register
+        </a>
+        {% else %}
+        <a
+          href="{% url 'watch:logout' %}"
+          class="btn btn-outline-secondary btn-sm"
+        >
+          Logout
+        </a>
+        <a
+          href="{% url 'watch:profile' %}"
+          class="m-1 user-icon text-info text-decoration-none"
+        >
+          <i class="fas fa-user"></i>
+          <small class="text-muted">{{request.user}}</small>
+        </a>
+        {% endif %}
+      </div>
     </div>
-    <form class="form-inline my-2 my-lg-0">
-      <input
-        class="form-control mr-sm-2"
-        type="search"
-        placeholder="Search"
-        aria-label="Search"
-      />
-      <button class="btn btn-outline-success my-2 my-sm-0" type="submit">
-        Search
-      </button>
-    </form>
   </div>
 </nav>
