@@ -1,5 +1,5 @@
-{% extends 'base.html'%}{% block title %}This is the business page{% endblock %}{% block content %}
-
+{% extends 'base.html'%}{% block title %}This is the business page{% endblock %}{% block content %} {% load static %}
+<link rel="stylesheet" href="{% static 'business.css' 5%}">
 <div class="container mt-5">
 
     <div class="row mt-4">
@@ -9,15 +9,27 @@
 
 
         {% for biashara in businesses %}
-        <div class="col-md-12 col-lg-3">
-            <div class="card">
-                <div class="card-body">
-                    <h5 class="card-title text-capitalize">{{ biashara.name }}</h5>
-                    <h6 class="card-subtitle mb-2 text-muted">Owner: <span class="badge rounded-pill bg-info text-white">{{ biashara.user.first_name }}</span></h6>
-                    <!-- <p class="card-text">{{ biz.description }}</p> -->
-                    <a href="malto:{{ biz.email }}" class="card-link">Email: <span class="text-bold text-primary">{{ biashara.email }}</span> </a>
-                    <br>
-                    <!-- <a class="card-link">Neighbourhood: <span class="badge rounded-pill bg-warning text-dark">{{ biz.neighbourhood }}</span> </a> -->
+        <div class="col-md-4">
+            <div class="card p-3 mb-2">
+                <div class="d-flex justify-content-between">
+                    <div class="d-flex flex-row align-items-center">
+                        <div class="icon"> <i class="bx bxl-mailchimp"></i> </div>
+                        <div class="ms-2 c-details">
+                            <h6 class="mb-0">{{biashara.user}}</h6> <span>{{biashara.created_at}}</span>
+                        </div>
+                    </div>
+                    <div class="badge"> <span>{{biashara.neighbourhood}}</span> </div>
+                </div>
+                <div class="mt-5">
+                    <h3 class="heading">{{biashara.name}}</h3>
+                    <p>{{biashara.description}}</p>
+                    <div class="mt-5">
+                        <div class="progress">
+                            <div class="progress-bar" role="progressbar" style="width: 50%" aria-valuenow="50" aria-valuemin="0" aria-valuemax="100"></div>
+                        </div>
+                        <div class="mt-3"> <span class="text1">Email<span class="text2">  {{biashara.email}}</span></span>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
