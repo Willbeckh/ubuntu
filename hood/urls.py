@@ -16,6 +16,9 @@ urlpatterns = [
 
     path("post/save/", views.create_post, name="save_post"),# save post
 
+    path("business/create/", views.create_business, name="create_business"), # create business
+
+
 
     # path("business/create/", views.create_business, name="create_business"), # create business
 
