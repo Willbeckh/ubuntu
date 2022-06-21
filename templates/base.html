@@ -23,7 +23,7 @@
 
 
         <div class="collapse navbar-collapse" id="navbarNav">
-
+            {% if user.is_authenticated %}
             <form id="search" class="me-auto search-form mt-1 text-center  justify-content-center" target="_self" action="{% url 'search' %}">
                 <div class="d-flex align-items-center"><label class="form-label d-flex mb-0" for="search-field">
                     <i class="fa fa-search "></i>
@@ -33,7 +33,7 @@
 
 
             <ul class="navbar-nav ms-auto">
-                {% if user.is_authenticated %}
+
                 <li class="nav-item">
                     <a class="nav-link active" aria-current="page" href="{% url 'home' %}">Home</a>
                 </li>
