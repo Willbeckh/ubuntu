@@ -13,5 +13,6 @@ urlpatterns = [
     path('profile/<int:pk>/update/', views.edit_user, name='edit_profile'),
     path('profile/', ProfileView.as_view(), name='profile'),
     path('post/', PostView.as_view(), name='post'),
+    path('search/', SearchView.as_view(), name='search'),
     # path('facility/', FacilityView.as_view(), name='facility')
 ]
