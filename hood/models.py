@@ -117,6 +117,8 @@ class Post(models.Model):
     neighbourhood = models.ForeignKey(NeighbourHood, on_delete=models.CASCADE , default=1)
     created_at = models.DateTimeField(auto_now_add=True)
 
+    def create_post(self):
+        self.save()
 
 
     def __str__(self):

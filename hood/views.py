@@ -277,3 +277,56 @@ def Update_Profile(request):
 
 
 
+@login_required()
+def create_post(request):
+
+    if request.method == 'POST':
+
+        current_user = request.user
+
+        title = request.POST["title"]
+        content = request.POST["content"]
+        location = request.POST["location"]
+
+
+
+        poster = request.FILES["image"]
+
+
+
+
+
+        #get user neighbourhood
+        profile = Profile.objects.filter(user_id=current_user.id).first()
+
+
+        if profile is None:
+            profile = Profile.objects.filter(
+            user_id=current_user.id).first()  # get profile
+            posts = Post.objects.filter(user_id=current_user.id)
+            # get all locations
+            locations = Location.objects.all()
+            neighbourhood = NeighbourHood.objects.all()
+            businesses = Business.objects.filter(user_id=current_user.id)
+            contacts = Contact.objects.filter(user_id=current_user.id)
+            # redirect to profile with error message
+            return render(request, "profile.html", {"danger": "Update Profile by selecting Your Neighbourhood name to continue 😥!!", "locations": locations, "neighbourhood": neighbourhood, "categories": category, "businesses": businesses, "contacts": contacts, "posts": posts})
+        else:
+            neighbourhood = profile.neighbourhood
+
+
+         # check if its an instance of location
+        if location == "":
+            location = None
+        else:
+            location = Location.objects.get(name=location)
+
+        
+
+
+        post = Post(user_id=current_user.id,title=title, content=content,image=poster,location=location,neighbourhood=neighbourhood,)
+        post.create_post()
+        return redirect("/profile", {"success": "Post Created Successfully"})
+
+    else:
+        return redirect("/profile", {"success": "Post Created Successfully"})

@@ -14,6 +14,15 @@ urlpatterns = [
     path('profile/update/<int:pk>', views.edit_user, name='update'),
 
 
+    path("post/save/", views.create_post, name="save_post"),# save post
+
+
+    # path("business/create/", views.create_business, name="create_business"), # create business
+
+
+
+
+
 
 
 
