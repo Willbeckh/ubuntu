@@ -63,16 +63,16 @@ class Neighborhood(models.Model):
         return self.save()
 
     def update_neighborhood(self):
-        pass
+        return self.update()
 
     def delete_neighborhood(self):
-        pass
+        return self.delete()
 
     def find_neighborhood_by_id(self, id):
-        pass
+        return self.objects.get(id=id)
 
     def update_occupants(self):
-        pass
+        return self.update()
 
     def count_occupants(self):
         self.occupants = self.user.userprofile.count()
@@ -92,6 +92,21 @@ class Facility(models.Model):
     def __str__(self):
         return self.name
 
+    def save_facility(self):
+        return self.save()
+
+    def update_facility(self):
+        return self.update()
+
+    def delete_facility(self):
+        return self.delete()
+    
+    def find_facility_by_id(self, id):
+        return self.objects.get(id=id)
+
+    def search_facility(self, name):
+        return Facility.objects.filter(name__icontains=name)
+
 
 # Businessess model
 class Business(models.Model):
@@ -107,7 +122,23 @@ class Business(models.Model):
     def __str__(self):
         return self.name
 
+    def save_business(self):
+        return self.save()
 
+    def update_business(self):
+        return self.update()
+
+    def delete_business(self):
+        return self.delete()
+    
+    def find_business_by_id(self, id):
+        return self.objects.get(id=id)
+
+    def search_business(self, query):
+        return self.objects.filter(name__icontains=query)
+
+
+# post created by users
 class Post(models.Model):
     user = models.ForeignKey(
         User, on_delete=models.CASCADE, related_name='post')
@@ -117,4 +148,17 @@ class Post(models.Model):
     timestamp = models.DateTimeField(auto_now_add=True)
 
     def __str__(self):
-        return self.title
+        return str(self.title)
+
+    def save_post(self):
+        return self.save()
+
+    def update_post(self):
+        return self.update()
+
+    def delete_post(self):
+        return self.delete()
+
+    def search_post(self, query):
+        posts = Post.objects.filter(body__icontains=query)
+        return posts
