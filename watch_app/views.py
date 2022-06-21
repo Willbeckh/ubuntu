@@ -164,3 +164,31 @@ class PostView(LoginRequiredMixin, CreateView):
     def form_valid(self, form):
         form.instance.user = self.request.user
         return super().form_valid(form)
+
+
+# search view method
+class SearchView(LoginRequiredMixin, View):
+    """This class view is used to render the search page and execute search queries."""
+    # business = Business.objects.all()
+    # facility = Facility.objects.all()
+
+    def get(self, request):
+        try:
+            profile = UserProfile.objects.get(user=request.user)
+            if 'search_query' in request.GET and request.GET['search_query']:
+                search_term = request.GET.get('search_query')
+                search_results = Facility.search_facility('', search_term) or Business.search_business(
+                    '', search_term) or Post.search_post('', search_term)
+                message = f'Results for {search_term}...'
+                ctx = {
+                    'facilities': search_results,
+                    'message': message,
+                    'data': profile
+                }
+                return render(request, 'watch/index.html', ctx)
+        except Facility.DoesNotExist:
+            # search_facility = None
+            message = 'Err: no results found'
+            ctx = {
+                'message': message, 'user': request.user}
+            return render(request, 'watch/index.html', ctx)
