@@ -330,3 +330,63 @@ def create_post(request):
 
     else:
         return redirect("/profile", {"success": "Post Created Successfully"})
+
+
+# create business
+@login_required(login_url="/accounts/login/")
+def create_business(request):
+    if request.method == "POST":
+        current_user = request.user
+        name = request.POST["name"]
+        email = request.POST["email"]
+        description = request.POST["description"]
+        # phone = request.POST["phone"]
+        # address = request.POST["address"]
+        # location = request.POST["location"]
+        # neighbourhood = request.POST["neighbourhood"]
+
+        # check if its an instance of location
+        # if location == "":
+        #     location = None
+        # else:
+        #     location = Location.objects.get(name=location)
+
+        # get current user neighbourhood
+        profile = Profile.objects.filter(user_id=current_user.id).first()
+        # check if user has neighbourhood
+        if profile is None:
+            profile = Profile.objects.filter(
+                user_id=current_user.id).first()  # get profile
+            posts = Post.objects.filter(user_id=current_user.id)
+            # get all locations
+            locations = Location.objects.all()
+            neighbourhood = NeighbourHood.objects.all()
+            businesses = Business.objects.filter(user_id=current_user.id)
+            contacts = Contact.objects.filter(user_id=current_user.id)
+            # redirect to profile with error message
+            return render(request, "profile.html", {"danger": "Update Profile by selecting Your Neighbourhood name to continue 😥!!", "locations": locations, "neighbourhood": neighbourhood, "categories": category, "businesses": businesses, "contacts": contacts, "posts": posts})
+        else:
+            neighbourhood = profile.neighbourhood
+
+        # check if its an instance of neighbourhood
+        if neighbourhood == "":
+            neighbourhood = None
+        else:
+            neighbourhood = NeighbourHood.objects.get(name=neighbourhood)
+
+        business = Business(
+            user_id=current_user.id,
+            name=name,
+            email=email,
+            description=description,
+
+            # phone=phone,
+            # address=address,
+            # location=location,
+            neighbourhood=neighbourhood,
+        )
+        business.create_business()
+
+        return redirect("/profile", {"success": "Business Created Successfully"})
+    else:
+        return render(request, "profile.html", {"danger": "Business Creation Failed"})
