@@ -333,7 +333,7 @@ def create_post(request):
 
 
 # create business
-@login_required(login_url="/accounts/login/")
+@login_required()
 def create_business(request):
     if request.method == "POST":
         current_user = request.user
@@ -390,3 +390,32 @@ def create_business(request):
         return redirect("/profile", {"success": "Business Created Successfully"})
     else:
         return render(request, "profile.html", {"danger": "Business Creation Failed"})
+
+
+
+
+# viewbusinesses 
+@login_required()
+def business(request):
+    current_user = request.user
+    # get current user neighbourhood
+    profile = Profile.objects.filter(user_id=current_user.id).first()
+    # check if user has neighbourhood
+    if profile is None:
+        profile = Profile.objects.filter(
+            user_id=current_user.id).first()  # get profile
+        posts = Post.objects.filter(user_id=current_user.id)
+        # get all locations
+        locations = Location.objects.all()
+        neighbourhood = NeighbourHood.objects.all()
+        businesses = Business.objects.filter(user_id=current_user.id)
+        contacts = Contact.objects.filter(user_id=current_user.id)
+        # redirect to profile with error message
+        return render(request, "profile.html", {"danger": "Update Profile by selecting Your Neighbourhood name to continue 😥!!", "locations": locations, "neighbourhood": neighbourhood, "businesses": businesses, "contacts": contacts, "posts": posts})
+    else:
+        neighbourhood = profile.neighbourhood
+        # get all businesses in the user neighbourhood
+        businesses = Business.objects.filter(
+            neighbourhood=profile.neighbourhood)
+        return render(request, "business.html", {"businesses": businesses})
+
