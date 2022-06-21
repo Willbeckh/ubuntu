@@ -10,6 +10,8 @@ urlpatterns = [
     path('profile/update/', views.Update_Profile , name="update_profile"),
 
     path('business/', views.Businesses , name="business"),#businessroute
+    path("alerts/", views.signal , name="alerts"), # alerts
+
 
     path('profile/update/<int:pk>', views.edit_user, name='update'),
 
