@@ -201,6 +201,7 @@
                 <div class="col-lg-8">
                     <button type="button" class="btn btn-primary m-3" data-bs-toggle="modal" data-bs-target="#exampleModal">
                     <i class="fa fa-plus text-white"></i> Add Post
+                    
                 </button>
 
                     <table class="table mt-3">
@@ -208,7 +209,7 @@
                             <tr>
                                 <th scope="col">picture</th>
                                 <th scope="col">tile</th>
-                                <th scope="col">user</th>
+                                <th scope="col">posted by</th>
                                 <th scope="col">Handle</th>
                             </tr>
                         </thead>
@@ -238,7 +239,11 @@
                 </div>
 
 
-                <!-- modal formgoes ghrere -->
+
+
+
+
+                <!-- modal formgoes for posts ghrere -->
                 <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
                     <div class="modal-dialog" role="document">
                         <div class="modal-content">
@@ -282,7 +287,98 @@
                                 </div>
                             </div>
                         </div>
+
+
                     </div>
+
+                </div>
+                <div class="col-lg-8">
+                    <button type="button" class="btn btn-primary m-3" data-bs-toggle="modal" data-bs-target="#addBusiness">
+                        <i class="fa fa-plus text-white"></i> create business</button>
+
+
+                    <table class="table mt-3">
+                        <thead>
+                            <tr>
+                                <th scope="col">Biz name</th>
+                                <th scope="col"> Biz description</th>
+                                <th scope="col">Neighbourhood</th>
+                                <th scope="col">Owner </th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {% for business in businesses %}
+
+                            <tr>
+                                <td>{{ business.name}}</td>
+                                <td>
+                                    {{ business.description }}
+
+                                </td>
+                                <td>{{business.neighbourhood}}</td>
+                                <td>{{business.user}}</td>
+                            </tr>
+                            {% empty %}
+                            <tr>
+                                <td colspan="4" class="text-center text-danger">No Businesses Created! yet</td>
+                            </tr>
+
+                            {% endfor %}
+
+
+                        </tbody>
+                    </table>
+
+
+
+
+
+
+
+                </div>
+
+
+                <div class="modal fade" id="addBusiness" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                    <div class="modal-dialog" role="document">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <h5 class="modal-title" id="exampleModalLabel">Add Business</h5>
+                                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                            </div>
+                            <div class="modal-body">
+                                <form action="{% url 'create_business' %}" method="post" enctype="multipart/form-data">
+                                    {% csrf_token %}
+                                    <div class="form-group mb-3">
+                                        <label for="title">Business Name</label>
+                                        <input type="text" class="form-control" value="" name="name" required>
+                                    </div>
+                                    <div class="form-group mb-3">
+                                        <label for="title">Business Email</label>
+                                        <input type="email" class="form-control" value="" name="email" required>
+                                    </div>
+                                    <!-- <div class="mb-3">
+                                    <label for="neighbourhood">Neighbourhood</label>
+                                    <select name="neighbourhood" id="neighbourhood" class="form-control"
+                                        required>
+                                        <option value="">--Select Option--</option>
+                                        {% for neighbourhood in neighbourhood %}
+                                        <option value="{{ neighbourhood.name }}">{{ neighbourhood.name }}
+                                        </option>
+                                        {% endfor %}`
+                                    </select>
+                                </div> -->
+                                    <div class="form-group mt-3">
+                                        <label for="exampleFormControlTextarea1">Description</label>
+                                        <textarea class="form-control" id="exampleFormControlTextarea1" rows="5" name="description"></textarea>
+                                    </div>
+                                    <div class="modal-footer">
+                                        <button type="submit" class="btn">Save</button>
+                                </form>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
                 </div>
             </div>
 
