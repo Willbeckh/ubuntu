@@ -4,10 +4,12 @@ from django.contrib.auth.mixins import LoginRequiredMixin
 from django.contrib.auth.decorators import login_required
 from django.forms.models import inlineformset_factory
 from django.core.exceptions import PermissionDenied
+from django.views.generic.edit import CreateView
 from django.contrib.auth.models import User
 from django.contrib import messages
 from django.urls import reverse
 from django.views import View
+
 
 # local imports
 from .forms import UserForm, CreateUserForm
@@ -26,9 +28,7 @@ class HomeView(LoginRequiredMixin, View):
                 neighborhood=profile.neighborhood)
             businesses = Business.objects.filter(
                 neighborhood=profile.neighborhood)
-            posts = Post.objects.filter(
-                neighborhood=profile.neighborhood).order_by('-timestamp')
-            # posts = Post.objects.all().order_by('-timestamp')
+            posts = Post.objects.all().order_by('-timestamp')
             context = {
                 'title': 'Home',
                 'data': profile,
@@ -106,10 +106,12 @@ class ProfileView(LoginRequiredMixin, View):
     def get(self, request):
         user = request.user
         profile = get_object_or_404(UserProfile, user=user)
+        posts = Post.objects.filter(user=user).order_by('-timestamp')
         context = {
             'title': 'Profile',
             'user_data': user,
             'profile_data': profile,
+            'posts': posts
 
         }
         return render(request, 'watch/profile.html', context)
@@ -149,3 +151,15 @@ def edit_user(request, pk):
         })
     else:
         raise PermissionDenied
+
+
+# post creation form handler & view
+class PostView(LoginRequiredMixin, CreateView):
+    model = Post
+    fields = ['title', 'body', 'picture']
+    template_name: str = 'watch/post_form.html'
+    success_url = '/'
+
+    def form_valid(self, form):
+        form.instance.user = self.request.user
+        return super().form_valid(form)
