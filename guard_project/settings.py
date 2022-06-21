@@ -13,6 +13,9 @@ https://docs.djangoproject.com/en/4.0/ref/settings/
 import os
 from pathlib import Path
 from decouple import config
+import cloudinary
+import cloudinary.uploader
+import cloudinary.api
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -30,8 +33,14 @@ DEBUG = True
 ALLOWED_HOSTS = []
 
 
-# Application definition
+# cloudinary config
+cloudinary.config( 
+  cloud_name = config("CLOUD_NAME"), 
+  api_key = config("API_KEY"), 
+  api_secret = config("API_SECRET") 
+)
 
+# Application definition
 INSTALLED_APPS = [
     'django.contrib.admin',
     'django.contrib.auth',
@@ -46,7 +55,8 @@ INSTALLED_APPS = [
     # fontawesome
     'fontawesomefree',
     # material
-    'material'
+    'material',
+    'cloudinary'
 ]
 
 MIDDLEWARE = [
