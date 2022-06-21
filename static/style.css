@@ -5,7 +5,10 @@
   padding: 0;
   margin: 0;
 }
-
+::selection {
+  background-color: #00fad0;
+  color: rgb(5, 0, 0);
+}
 /* topnavebar */
 .navbar {
   font-size: 1.2em;
