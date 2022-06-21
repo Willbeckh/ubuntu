@@ -1,6 +1,6 @@
 <nav class="navbar sticky-top navbar-expand-lg navbar-light bg-light">
   <div class="container">
-    <a class="navbar-brand" href="{% url 'watch:home' %}">N!</a>
+    <a class="navbar-brand" href="{% url 'watch:home' %}"><i class="fab fa-ubuntu fa-xl text-info"></i><span class="logo">N.</span></a>
     <button
       class="navbar-toggler"
       type="button"
@@ -58,11 +58,11 @@
         {% else %}
         <a
           href="{% url 'watch:logout' %}"
-          class="btn btn-outline-warning btn-sm"
+          class="btn btn-outline-secondary btn-sm"
         >
           Logout
         </a>
-        <a href="{% url 'watch:profile' %}" class="m-1">
+        <a href="{% url 'watch:profile' %}" class="m-1 user-icon text-info">
           <i class="fas fa-user"></i>
         </a>
         {% endif %}
