@@ -10,8 +10,7 @@ from django.urls import reverse
 class UserProfile(models.Model):
     user = models.OneToOneField(
         User, on_delete=models.CASCADE, related_name='user')
-    photo = models.ImageField(
-        upload_to='profile_images', blank=True, null=True, default='profile_images/default.png')
+    photo = CloudinaryField('profile image', blank=True, null=True)
     location = models.CharField(
         max_length=100, blank=True, null=True, default='')
     bio = models.TextField(blank=True, default='', null=True, max_length=500)
@@ -40,9 +39,8 @@ class UserProfile(models.Model):
     def get_absolute_url(self):
         return reverse('profile', kwargs={'pk': self.pk})
 
+
 # neighborhood model
-
-
 class Neighborhood(models.Model):
     name = models.CharField(max_length=50, blank=True, null=True, default='')
     location = models.CharField(
@@ -86,8 +84,7 @@ class Facility(models.Model):
     contact = models.CharField(
         max_length=50, blank=True, null=True, default='')
     email = models.CharField(max_length=80, blank=True, null=True, default='')
-    picture = models.ImageField(
-        upload_to='facility_images', blank=True, null=True)
+    picture = CloudinaryField('Facility image', blank=True, null=True)
     location = models.CharField(
         max_length=50, blank=True, null=True, default='')
     created_at = models.DateTimeField(auto_now_add=True, null=True)
@@ -102,8 +99,7 @@ class Business(models.Model):
         User, on_delete=models.CASCADE, related_name='business')
     name = models.CharField(max_length=100, blank=True, null=True, default='')
     email = models.CharField(max_length=80, blank=True, null=True, default='')
-    picture = models.ImageField(
-        upload_to='business', blank=True, null=True)
+    picture = CloudinaryField('Business image', blank=True, null=True)
     location = models.CharField(
         max_length=50, blank=True, null=True, default='')
     created_at = models.DateTimeField(auto_now_add=True, null=True)
@@ -117,7 +113,7 @@ class Post(models.Model):
         User, on_delete=models.CASCADE, related_name='post')
     title = models.CharField(max_length=100, blank=True, null=True, default='')
     body = models.TextField(blank=True, null=True, default='')
-    picture = models.ImageField(upload_to='post_images', blank=True, null=True)
+    picture = CloudinaryField('Post image', blank=True, null=True)
     timestamp = models.DateTimeField(auto_now_add=True)
 
     def __str__(self):
