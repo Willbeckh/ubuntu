@@ -7,14 +7,17 @@ choice.forEach(function (choice) {
     const facility = document.querySelector(".facility-section");
     const news = document.querySelector(".news-section");
     if (choice === "Businesses") {
+      window.location.reload();
       business.classList.remove("d-none");
       facility.classList.add("d-none");
       news.classList.add("d-none");
     } else if (choice === "Facilities") {
+      window.location.reload();
       facility.classList.remove("d-none");
       business.classList.add("d-none");
       news.classList.add("d-none");
     } else if (choice == "Posts") {
+      window.location.reload();
       news.classList.remove("d-none");
       business.classList.add("d-none");
       facility.classList.add("d-none");
