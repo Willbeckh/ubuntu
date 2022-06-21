@@ -396,7 +396,7 @@ def create_business(request):
 
 # viewbusinesses 
 @login_required()
-def business(request):
+def Businesses(request):
     current_user = request.user
     # get current user neighbourhood
     profile = Profile.objects.filter(user_id=current_user.id).first()
@@ -411,11 +411,11 @@ def business(request):
         businesses = Business.objects.filter(user_id=current_user.id)
         contacts = Contact.objects.filter(user_id=current_user.id)
         # redirect to profile with error message
-        return render(request, "profile.html", {"danger": "Update Profile by selecting Your Neighbourhood name to continue 😥!!", "locations": locations, "neighbourhood": neighbourhood, "businesses": businesses, "contacts": contacts, "posts": posts})
+        return render(request, "hood/bussiness.html", {"danger": "Update Profile by selecting Your Neighbourhood name to continue 😥!!", "locations": locations, "neighbourhood": neighbourhood, "businesses": businesses, "contacts": contacts, "posts": posts})
     else:
         neighbourhood = profile.neighbourhood
         # get all businesses in the user neighbourhood
         businesses = Business.objects.filter(
             neighbourhood=profile.neighbourhood)
-        return render(request, "business.html", {"businesses": businesses})
+        return render(request, "hood/business.html", {"businesses": businesses})
 
