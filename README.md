@@ -1,6 +1,9 @@
 # watch-guard
 Neighborhood watch django application
 
+
+## Live links to the site [livelink](http://127.0.0.1:8000/register/)
+
 ## Description 
 * This is a neighborhood to help community memebers living in a ceratin neighbourhood be in the loop of what is actually happeningonin theirrneighbour . It Also helps those who might to start a business in their neighbourhood by provind them with an avanue to do so.
 
