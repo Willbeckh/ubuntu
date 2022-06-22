@@ -69,10 +69,11 @@ If you track any bug or have an improvement:
 - Open [issue](https://github.com/Willbeckh/ubuntu/issues/new/choose) or a [PR](https://github.com/Willbeckh/ubuntu/compare).
 
 
-## Author
+## Authors
 **Willbeckh** : fullstack developer, a wizard at his craft. 
+**Bruno Ngugi**: code genius | Fullstack developer
 
-~made with ❤️ by willbeckh~
+~made with ❤️ by Willbeckh && Bruno~
 
 🐦 [Twitter](https://twitter.com/billyndirangu)
 
