@@ -11,6 +11,8 @@ django-bootstrap4 = "*"
 pillow = "*"
 fontawesomefree = "==6.1.1"
 django-material = "*"
+whitenoise = "*"
+cloudinary = "*"
 
 [dev-packages]
 

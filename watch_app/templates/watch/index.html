@@ -5,8 +5,137 @@
 <!-- home content -->
 <div class="row">
   <div class="col-md-12">
-    <h1>Watch</h1>
-    <p>This is the home page of the Watch app.</p>
+    <div class="banner rounded mt-5 shadow">
+      {% if data.neighborhood %}
+      <h3 class="text-center">Welcome to {{data.neighborhood}}</h3>
+      {% else %}
+      <h3 class="text-center">Hello {{data}}</h3>
+      {% endif %}
+      <div class="col-md-6 col-sm-10 mx-auto">
+        <form action="{% url 'watch:search' %}">
+          <div class="input-group mb-2">
+            <input
+              type="search"
+              name="search_query"
+              class="form-control col-form-label-lg"
+              id="inlineFormInputGroup"
+              placeholder="Search..."
+              required
+            />
+            <div class="input-group-append">
+              <button class="btn btn-outline-info" type="submit">
+                <i class="fas fa-search"></i>
+              </button>
+            </div>
+          </div>
+        </form>
+        <small class="text-muted"
+          >Find: businesses, public facilities, news... around you</small
+        >
+      </div>
+    </div>
+    <div class="mini-nav">
+      <div class="text-center">
+        <a href="#" type="button" class="mini-nav__item nav-btn">Facilities</a>
+        <a href="#" type="button" class="mini-nav__item nav-btn"> Posts </a>
+        <a href="#" type="button" class="mini-nav__item nav-btn">Businesses</a>
+      </div>
+    </div>
+    <hr />
   </div>
 </div>
+<!-- home content -->
+
+<div class="container mt-3">
+  <h4 class="text-center">{{message}}</h4>
+  <div class="news-section d-none">
+    <div class="row">
+      {% if posts %} {% for post in posts %}
+      <div class="col-12 col-lg-4 col-md-6 col-sm-12">
+        <div>
+          <div class="card mb-2 shadow">
+            <div class="card-header">
+              <small class="badge-pill bg-primary text-light"
+                ><b>{{post.user}}</b></small
+              >
+              <span class="ml-5">
+                <small>{{post.timestamp|timesince}} ago.</small></span
+              >
+            </div>
+            <div class="card-body news-card">
+              <h4><strong>{{post}}</strong></h4>
+
+              <p class="post-body">{{post.body|truncatechars:60}}</p>
+              <small class="badge-pill bg-secondary">{{data.neighborhood}}</small>
+            </div>
+          </div>
+        </div>
+      </div>
+      {% endfor %} {% else %}
+      <h3 class="text-center">Oops. no news available currently</h3>
+      {% endif %}
+    </div>
+  </div>
+  <!--  -->
+
+  <div class="facility-section">
+    <div class="row p-2">
+      {% if facilities %} {% for facility in facilities %}
+      <div class="col-12 col-md-6 col-sm-12 col-lg-4">
+        <div class="card facility-card mb-2 shadow-sm">
+          <div class="card-body">
+            <h3>{{facility.name}}</h3>
+            <div class="details">
+              <p><i class="fas fa-at"></i> {{ facility.email}}</p>
+              <p><i class="fas fa-phone"></i> {{ facility.contact}}</p>
+              <p><i class="fas fa-location-pin"></i> {{ facility.location}}</p>
+            </div>
+          </div>
+          <div class="card-footer">
+            <small class="badge-pill text-muted"
+              >Est. {{facility.created_at|date}}</small
+            >
+          </div>
+        </div>
+      </div>
+      {% endfor %} {% else %}
+      <!-- <h3 class="text-center">Oops. no news available currently</h3> -->
+      <p class="text-center">No facilites found in your area.</p>
+      {% endif %}
+    </div>
+  </div>
+
+  <!--  -->
+  <div class="business-section d-none">
+    <div class="row">
+      {% if businesses %} {% for business in businesses %}
+      <div class="col-12 col-md-6 col-sm-12 col-lg-4">
+        <div class="card mb-2">
+          <div class="card-body">
+            <h4 class="biz-name">{{business}}</h4>
+            <div class="img-d">
+              {% load static %}
+              <img src="{% static 'media/deliver.gif '%}" alt="" class="w-75" />
+            </div>
+            <p><i class="fas fa-at"></i> :{{ business.email }}</p>
+            <small
+              ><i class="fas fa-location-pin"></i>{{business.location}}</small
+            >
+          </div>
+        </div>
+      </div>
+      {% endfor %} {% else %}
+      <p>No businesses found in your area.</p>
+      {% endif %}
+    </div>
+  </div>
+</div>
+
+{% load static %}
+<!-- content filter code -->
+<script
+  src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"
+  referrerpolicy="no-referrer"
+></script>
+<script src="{% static 'script.js' %}"></script>
 {% endblock %}

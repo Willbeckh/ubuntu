@@ -1,0 +1,139 @@
+@import url("https://fonts.googleapis.com/css2?family=Poppins:wght@500&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Ubuntu&display=swap");
+
+* {
+  padding: 0;
+  margin: 0;
+}
+::selection {
+  background-color: #00fad0;
+  color: rgb(5, 0, 0);
+}
+
+/* topnavebar */
+.navbar {
+  font-size: 1.2em;
+  font-family: "Ubuntu", sans-serif;
+  color: #131b45;
+}
+.logo {
+  font-weight: bold;
+}
+.user-icon {
+  border: 1px solid #131b45;
+  border-radius: 60px;
+  padding: 3px;
+}
+/* topnavebar */
+
+/* home page style */
+.banner {
+  background: linear-gradient(45deg, #b7f0bd, #ebfdf9, #fdedff);
+  padding: 20px;
+  text-align: center;
+}
+.banner h3 {
+  color: #111a43;
+  font-size: 3.2em;
+  font-weight: bold;
+  font-family: "Poppins", sans-serif;
+}
+
+.mini-nav__item {
+  padding: 10px;
+  margin: 0 20px;
+}
+.mini-nav a {
+  color: #111a43;
+  text-decoration: none;
+  font-size: 1.1em;
+  font-weight: bolder;
+}
+
+.mini-nav a:hover {
+  text-decoration: none;
+  background: #d9f9e5;
+  color: #111a43;
+  border-bottom: 1px solid #000;
+}
+
+.btn-active {
+  background: #d9f9e5;
+  color: #111a43;
+  border-bottom: 1px solid #000;
+}
+.news-card:hover {
+  background-color: rgba(24, 24, 24, 0.116);
+  cursor: pointer;
+}
+.post-body {
+  font-family: "Poppins", sans-serif;
+  font-weight: 400;
+  color: #131b45;
+}
+.biz-name {
+  font-size: 1.4em;
+  font-weight: bold;
+  font-family: "Poppins", sans-serif;
+}
+/* home page style end*/
+
+/* user profile */
+.username {
+  font-size: 1.5em;
+  font-weight: bold;
+  margin-bottom: 0.5em;
+  margin-right: 1em;
+}
+.user-img {
+  width: 100px;
+  height: 100px;
+  border-radius: 50%;
+  margin: 0 auto;
+  display: block;
+  border: 3px solid #10eaf3;
+}
+
+.profile-banner {
+  padding: 1rem;
+}
+
+.profile-details {
+  cursor: pointer;
+}
+
+.email {
+  font-size: 1em;
+  font-weight: bold;
+  margin-bottom: 0.5em;
+  margin-right: 1em;
+}
+
+.user-details {
+  background-color: #ebfdf9;
+  color: #111a43;
+}
+
+.user-img-section {
+  background: linear-gradient(to left, #ebfdf9, #8ec4b8);
+}
+/* user profile end */
+
+/* forms */
+/* login form */
+.login-form {
+  line-height: 400%;
+  background-color: rgba(169, 228, 254, 0.5);
+}
+
+.register-form {
+  background-color: #defdfd;
+}
+
+.sign-img {
+  border: 2px #00fad0 solid;
+  border-radius: 50%;
+  color: #111a43;
+}
+/* login form */
+/* forms end */
